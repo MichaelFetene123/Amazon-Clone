@@ -1,22 +1,19 @@
-import React,{ useContext } from "react";
+import React, { useContext } from "react";
 import { BsSearch } from "react-icons/bs";
 import { BiCart } from "react-icons/bi";
 import { SlLocationPin } from "react-icons/sl";
 import classes from "./Header.module.css"; // Assuming you have a CSS module for styles
-import LowerHeader from './LowerHeader';
-import {Link} from "react-router-dom"; // Assuming you are using react-router for navigation
-import {DataContext} from "../DataProvider/DataProvider";
-
-
-
+import LowerHeader from "./LowerHeader";
+import { Link } from "react-router-dom"; // Assuming you are using react-router for navigation
+import { DataContext } from "../DataProvider/DataProvider";
+import { auth } from "../../Utility/firebase";
 
 const Header = () => {
+  const [{ user, basket }, disPatch] = useContext(DataContext);
 
-  const [{basket}, disPatch] = useContext(DataContext);
-
-const totalItems = basket?.reduce((amount, item) => {
+  const totalItems = basket?.reduce((amount, item) => {
     return item.amount + amount;
-}, 0);
+  }, 0);
 
   return (
     <div className={classes.sticky__header}>
@@ -47,7 +44,7 @@ const totalItems = basket?.reduce((amount, item) => {
             </select>
             <input type="text" placeholder="Search Amazon" />
             {/* icon */}
-            <BsSearch size={35} />
+            <BsSearch size={38} />
           </div>
           <div className={classes.order__container}>
             <Link to="" className={classes.language}>
@@ -60,9 +57,20 @@ const totalItems = basket?.reduce((amount, item) => {
               </select>
             </Link>
 
-            <Link to="/auth">
-              <p>Sign In</p>
-              <span>Account & Lists</span>
+            <Link to={!user && "/auth"}>
+              <div>
+                {user ? (
+                  <>
+                    <p>Hello, {user?.email?.split("@")[0]}</p>
+                    <span onClick={() => auth.signOut()}>Sign Out</span>
+                  </>
+                ) : (
+                  <>
+                    <p>Hello, Sign In</p>
+                    <span>Account & Lists</span>
+                  </>
+                )}
+              </div>
             </Link>
             <Link to="/orders">
               <p>Returns</p>
