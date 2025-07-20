@@ -10,7 +10,7 @@ const Category = () => {
     <section className={classes.category__container}>
       {
         categoryInfo.map((infos) => (
-<CategoryCard data={infos}/>
+<CategoryCard  data={infos}/>
         ))
       }
    </section>
