@@ -4,12 +4,6 @@
     box-sizing:border-box;
 }
 
-.sticky__header{
-    position: sticky;
-    top: 0;
-    z-index:100;
-}
-
 .header__container{
     background-color: #1a1a1a;
     display: flex;
@@ -42,8 +36,6 @@
     gap: 3px;
     font-weight: bold;
     padding: 5px;
-    color: white;
-text-decoration: none;
  }
 
  .delivery p{
@@ -160,11 +152,6 @@ outline:1px solid white ;
 
 .lower__container ul li{
     padding: 8px;
-    
-}
-.lower__container ul li:hover{
-   border: 1px solid white;
-    
 }
 
 .lower__container ul li:first-child{
@@ -187,5 +174,3 @@ outline:1px solid white ;
         display: none;
     }
 }
-
-

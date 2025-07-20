@@ -1,36 +1,29 @@
-import React,{ useContext } from "react";
+import React from "react";
 import { BsSearch } from "react-icons/bs";
 import { BiCart } from "react-icons/bi";
 import { SlLocationPin } from "react-icons/sl";
 import classes from "./Header.module.css"; // Assuming you have a CSS module for styles
 import LowerHeader from './LowerHeader';
-import {Link} from "react-router-dom"; // Assuming you are using react-router for navigation
-import {DataContext} from "../DataProvider/DataProvider";
+
 
 
 
 
 const Header = () => {
 
-  const [{basket}, disPatch] = useContext(DataContext);
-
-const totalItems = basket?.reduce((amount, item) => {
-    return item.amount + amount;
-}, 0);
-
   return (
-    <div className={classes.sticky__header}>
+    <>
       <section>
         <div className={classes.header__container}>
           {/* logo section */}
           <div className={classes.logo__container}>
-            <Link to="/">
+            <a href="">
               <img
                 src="https://pngimg.com/uploads/amazon/small/amazon_PNG11.png"
                 alt="amazon-logo"
               />
-            </Link>
-            <Link className={classes.delivery}>
+            </a>
+            <a className={classes.delivery}>
               <span>
                 <SlLocationPin />
               </span>
@@ -38,7 +31,7 @@ const totalItems = basket?.reduce((amount, item) => {
                 <p>Delivered to</p>
                 <span>Ethiopia</span>
               </div>
-            </Link>
+            </a>
           </div>
           {/* search bar */}
           <div className={classes.search}>
@@ -50,7 +43,7 @@ const totalItems = basket?.reduce((amount, item) => {
             <BsSearch size={35} />
           </div>
           <div className={classes.order__container}>
-            <Link to="" className={classes.language}>
+            <a href="" className={classes.language}>
               <img
                 src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/1024px-Flag_of_the_United_States.svg.png"
                 alt="US flag"
@@ -58,27 +51,27 @@ const totalItems = basket?.reduce((amount, item) => {
               <select name="" id="">
                 <option value="">EN</option>
               </select>
-            </Link>
+            </a>
 
-            <Link to="/auth">
+            <a href="">
               <p>Sign In</p>
               <span>Account & Lists</span>
-            </Link>
-            <Link to="/orders">
+            </a>
+            <a href="">
               <p>Returns</p>
               <span>& Orders</span>
-            </Link>
+            </a>
 
-            <Link to="/cart" className={classes.cart}>
+            <a a href="" className={classes.cart}>
               <BiCart size={35} />
-              <span>{totalItems}</span>
-            </Link>
+              <span>0</span>
+            </a>
           </div>
         </div>
       </section>
 
       <LowerHeader />
-    </div>
+    </>
   );
 };
 
