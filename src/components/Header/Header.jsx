@@ -1,29 +1,36 @@
-import React from "react";
+import React,{ useContext } from "react";
 import { BsSearch } from "react-icons/bs";
 import { BiCart } from "react-icons/bi";
 import { SlLocationPin } from "react-icons/sl";
 import classes from "./Header.module.css"; // Assuming you have a CSS module for styles
 import LowerHeader from './LowerHeader';
-
+import {Link} from "react-router-dom"; // Assuming you are using react-router for navigation
+import {DataContext} from "../DataProvider/DataProvider";
 
 
 
 
 const Header = () => {
 
+  const [{basket}, disPatch] = useContext(DataContext);
+
+const totalItems = basket?.reduce((amount, item) => {
+    return item.amount + amount;
+}, 0);
+
   return (
-    <>
+    <div className={classes.sticky__header}>
       <section>
         <div className={classes.header__container}>
           {/* logo section */}
           <div className={classes.logo__container}>
-            <a href="">
+            <Link to="/">
               <img
                 src="https://pngimg.com/uploads/amazon/small/amazon_PNG11.png"
                 alt="amazon-logo"
               />
-            </a>
-            <a className={classes.delivery}>
+            </Link>
+            <Link className={classes.delivery}>
               <span>
                 <SlLocationPin />
               </span>
@@ -31,7 +38,7 @@ const Header = () => {
                 <p>Delivered to</p>
                 <span>Ethiopia</span>
               </div>
-            </a>
+            </Link>
           </div>
           {/* search bar */}
           <div className={classes.search}>
@@ -43,7 +50,7 @@ const Header = () => {
             <BsSearch size={35} />
           </div>
           <div className={classes.order__container}>
-            <a href="" className={classes.language}>
+            <Link to="" className={classes.language}>
               <img
                 src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/1024px-Flag_of_the_United_States.svg.png"
                 alt="US flag"
@@ -51,27 +58,27 @@ const Header = () => {
               <select name="" id="">
                 <option value="">EN</option>
               </select>
-            </a>
+            </Link>
 
-            <a href="">
+            <Link to="/auth">
               <p>Sign In</p>
               <span>Account & Lists</span>
-            </a>
-            <a href="">
+            </Link>
+            <Link to="/orders">
               <p>Returns</p>
               <span>& Orders</span>
-            </a>
+            </Link>
 
-            <a a href="" className={classes.cart}>
+            <Link to="/cart" className={classes.cart}>
               <BiCart size={35} />
-              <span>0</span>
-            </a>
+              <span>{totalItems}</span>
+            </Link>
           </div>
         </div>
       </section>
 
       <LowerHeader />
-    </>
+    </div>
   );
 };
 
