@@ -4,31 +4,31 @@ import LayOut from "./../../components/LayOut/LayOut";
 import { DataContext } from "../../components/DataProvider/DataProvider";
 import ProductCard from "./../../components/Product/ProductCard";
 import CurrencyFormat from "./../../components/Product/CurrencyFormat/CurrencyFormat";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { Type } from "../../Utility/action.type";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 
 const Cart = () => {
   const [{ basket, user }, disPatch] = useContext(DataContext);
-  
+
   const total = basket.reduce((amount, item) => {
     return item.price * item.amount + amount;
   }, 0);
 
-  const increment = (item) => { 
+  const increment = (item) => {
     disPatch({
       type: Type.ADD_TO_BASKET,
-      item
-    })
-  }
+      item,
+    });
+  };
 
   const decrement = (id) => {
     disPatch({
       type: Type.REMOVE_FROM_BASKET,
-      id
-    })
-  }
+      id,
+    });
+  };
 
   return (
     <LayOut>
@@ -54,7 +54,7 @@ const Cart = () => {
                     className={classes.btn}
                     onClick={() => increment(item)}
                   >
-                    <IoIosArrowUp size={20}/>
+                    <IoIosArrowUp size={20} />
                   </button>
                   <span>{item.amount}</span>
                   <button

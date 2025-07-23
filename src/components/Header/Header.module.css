@@ -61,7 +61,7 @@ text-decoration: none;
  }
 
  .search select, .search input{
-padding: 10px;
+padding: 10px 10px 12px ;
 font-weight: bold;
 outline:1px solid white ;
  }
