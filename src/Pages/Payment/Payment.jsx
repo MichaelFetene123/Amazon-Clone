@@ -9,6 +9,7 @@ import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { ClipLoader } from 'react-spinners';
 import { db } from "../../Utility/firebase"; 
 import { useNavigate } from 'react-router-dom';
+import { Type } from './../../Utility/Action.type';
 
 const Payment = () => {
   const [{ user, basket }, dispatch] = useContext(DataContext);
@@ -66,7 +67,7 @@ const Payment = () => {
         created: paymentIntent.created,
       })
 //  empty the basket
-      dispatch({ type: "CLEAR_BASKET" });
+      dispatch({ type: Type.CLEAR_BASKET });
 
       setProcessing(false);
       
