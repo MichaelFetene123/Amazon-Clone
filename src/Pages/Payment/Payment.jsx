@@ -6,10 +6,10 @@ import ProductCard from "./../../components/Product/ProductCard";
 import CurrencyFormat from "./../../components/Product/CurrencyFormat/CurrencyFormat";
 import { axiosInstance } from "../../Api/axios";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
-import { ClipLoader } from 'react-spinners';
-import { db } from "../../Utility/firebase"; 
-import { useNavigate } from 'react-router-dom';
-import { Type } from './../../Utility/Action.type';
+import { ClipLoader } from "react-spinners";
+import { db } from "../../Utility/firebase";
+import { useNavigate } from "react-router-dom";
+import { Type } from "./../../Utility/action.type";
 
 const Payment = () => {
   const [{ user, basket }, dispatch] = useContext(DataContext);
@@ -60,25 +60,27 @@ const Payment = () => {
       // console.log(paymentIntent);
 
       // step 3
-      // after the confirmation --->order firebase save ,clear the basket, 
-      await db.collection('users').doc(user.uid).collection('orders').doc(paymentIntent.id).set({
-        basket: basket,
-        amount: paymentIntent.amount,
-        created: paymentIntent.created,
-      })
-//  empty the basket
+      // after the confirmation --->order firebase save ,clear the basket,
+      await db
+        .collection("users")
+        .doc(user.uid)
+        .collection("orders")
+        .doc(paymentIntent.id)
+        .set({
+          basket: basket,
+          amount: paymentIntent.amount,
+          created: paymentIntent.created,
+        });
+      //  empty the basket
       dispatch({ type: Type.CLEAR_BASKET });
 
       setProcessing(false);
-      
-      navigate("/orders",{state:{msg:'you have placed new Order'}});
 
+      navigate("/orders", { state: { msg: "you have placed new Order" } });
     } catch (error) {
       console.log(error);
       setProcessing(false);
     }
-
-   
   };
 
   return (
@@ -131,7 +133,7 @@ const Payment = () => {
                   <button type="submit">
                     {processing ? (
                       <div className={classes.loading}>
-                        <ClipLoader color="gray" size={ 12} />
+                        <ClipLoader color="gray" size={12} />
                         <p>Please wait...</p>
                       </div>
                     ) : (
